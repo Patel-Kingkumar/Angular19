@@ -10,15 +10,13 @@ import { Component, computed, effect, Signal, signal, WritableSignal } from '@an
 export class AppComponent {
   title = 'angular-19';
 
-  // signal and it's value type
-  data: WritableSignal<number | string> = signal<number | string>(10);
+  x = signal(10);
+  y = signal(20);
+  z = computed(() => this.x() + this.y());
 
-  count: Signal<number> = computed(() => 100) // not change directlly
-
-  updateSignal() {
-    this.data.set("Hello World");
-    // this.data.update((prev) => {prev + 1 }) update -> have limited onlu number here for it's work
+  btnClick() {
+    console.log(this.z());
+    this.x.set(100);
+    console.log(this.z());
   }
-
-
 }
