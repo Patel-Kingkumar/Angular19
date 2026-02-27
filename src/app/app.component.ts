@@ -1,4 +1,4 @@
-import { Component, effect, signal } from '@angular/core';
+import { Component, computed, effect, Signal, signal, WritableSignal } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -10,21 +10,15 @@ import { Component, effect, signal } from '@angular/core';
 export class AppComponent {
   title = 'angular-19';
 
-  count = signal(10);
+  // signal and it's value type
+  data: WritableSignal<number | string> = signal<number | string>(10);
 
-  constructor() {
-    // effect => A reactive function that runs automatically whenever the signals it reads change.
-    effect(() => {
-      console.log('count is ', this.count());
-    });
+  count: Signal<number> = computed(() => 100) // not change directlly
+
+  updateSignal() {
+    this.data.set("Hello World");
+    // this.data.update((prev) => {prev + 1 }) update -> have limited onlu number here for it's work
   }
 
-  incr() {
-    // this.count.set(100);
-    this.count.update(c => c + 1);
-  }
 
-  decr() {
-    this.count.update(c => c - 1);
-  }
 }
