@@ -10,13 +10,16 @@ import { Component, computed, effect, Signal, signal, WritableSignal } from '@an
 export class AppComponent {
   title = 'angular-19';
 
-  x = signal(10);
-  y = signal(20);
-  z = computed(() => this.x() + this.y());
+  userName = signal('King');
+
+  constructor() {
+    effect(() => {
+      console.log('User name is: ', this.userName());
+    });
+  }
 
   btnClick() {
-    console.log(this.z());
-    this.x.set(100);
-    console.log(this.z());
+    this.userName.set('Kano');
   }
+
 }
